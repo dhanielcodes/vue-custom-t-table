@@ -1,16 +1,15 @@
 <script setup lang="ts">
 defineProps({
   position: {
-    type: String as () => 'bl' | 'br' | 'tl' | 'tr' | 'top' | 'bottom',
+    type: String as () => 'lt' | 'lb' | 'bl' | 'tl' | 'tr' | 'top' | 'bottom' | 'left',
   }
 })
 
 
 </script>
-
 <template>
   <a-space>
-    <a-dropdown :position="position" trigger="click">
+    <a-popover :position="position" trigger="click">
       <slot name="action-btn"></slot>
 
       <template #content>
@@ -18,15 +17,15 @@ defineProps({
           <slot name="content"></slot>
         </div>
       </template>
-    </a-dropdown>
+    </a-popover>
   </a-space>
 </template>
 
 
 <style>
-.arco-dropdown {
-  width: 150px;
-  padding: 10px !important;
-  border-radius: 10px !important;
+.arco-popover-popup-content {
+  padding: 4px 12px;
+  width: 190px;
+  border-radius: 8px;
 }
 </style>

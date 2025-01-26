@@ -7,7 +7,7 @@ import StatusSlot from '@/tables/UserTable/slots/status-slot.vue';
 import PaymentStatusSlot from '@/tables/UserTable/slots/payment-status-slot.vue';
 import { CFormatter } from '@/libs/utils';
 
-const expandedKeys: any = ref([]);
+const expandedKeys = ref([]);
 
 
 const columns = [{
@@ -30,7 +30,9 @@ const columns = [{
 }];
 
 
-const rowSelection = reactive({
+import type { TableRowSelection } from '@arco-design/web-vue';
+
+const rowSelection: TableRowSelection = reactive({
   type: 'checkbox',
   showCheckedAll: true,
   onlyCurrent: false,

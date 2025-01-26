@@ -2,28 +2,31 @@
 import { ref, reactive } from 'vue'
 import { data } from '@/libs/data.ts'
 import enUS from '@arco-design/web-vue/es/locale/lang/en-us';
+import NameSlot from '@/tables/UserTable/slots/name-slot.vue';
+import StatusSlot from '@/tables/UserTable/slots/status-slot.vue';
+import PaymentStatusSlot from '@/tables/UserTable/slots/payment-status-slot.vue';
+import { CFormatter } from '@/libs/utils';
 
 const expandedKeys: any = ref([]);
 
 
 const columns = [{
   title: 'Name',
-  dataIndex: 'name',
   slotName: 'name'
 }, {
   title: 'User status',
-  dataIndex: 'salary',
+  slotName: 'status',
   width: 400
 }, {
   title: 'Payment status',
-  dataIndex: 'address',
+  slotName: 'pStatus',
 }, {
   title: 'Amount',
-  dataIndex: 'email',
+  slotName: 'amount',
 },
 {
   title: 'Action',
-  dataIndex: '',
+  slotName: 'action',
 }];
 
 
@@ -42,10 +45,19 @@ const rowSelection = reactive({
       <a-table :columns="columns" :data="data" v-model:expandedKeys="expandedKeys" :row-selection="rowSelection"
         :pagination="false">
         <template #name="{ record }">
-          <div>
-            <div class="slot_name">{{ record.name }}</div>
-            <div class="slot_email">{{ record.email }}</div>
-          </div>
+          <NameSlot :record="record" />
+        </template>
+        <template #status="{ record }">
+          <StatusSlot :record="record" />
+        </template>
+        <template #pStatus="{ record }">
+          <PaymentStatusSlot :record="record" />
+        </template>
+        <template #amount="{ record }">
+          <div>{{ CFormatter(record.amount) }}</div>
+        </template>
+        <template #action="{ record }">
+          <div>{{ CFormatter(record.amount) }}</div>
         </template>
       </a-table>
     </a-config-provider>

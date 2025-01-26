@@ -8,8 +8,8 @@ export const data = [
     currency: 'USD',
     status: 'active',
     paymentStatus: 'paid',
-    paymentDate:new Date(),
-    lastLogin:new Date(),
+    paymentDate: new Date(),
+    lastLogin: new Date(),
     children: [
       {
         key: '3',
@@ -35,8 +35,8 @@ export const data = [
     currency: 'USD',
     status: 'active',
     paymentStatus: 'unpaid',
-    paymentDate:new Date(),
-    lastLogin:new Date(),
+    paymentDate: new Date(),
+    lastLogin: new Date(),
     email: 'alisa.ross@example.com',
     children: [
       {

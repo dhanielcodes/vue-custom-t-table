@@ -1,0 +1,18 @@
+.arco-table-th {
+  padding-block: 6px;
+  background-color: #f4f2ff !important;
+  text-transform: uppercase;
+  color: #6e6893 !important;
+}
+.arco-table-td {
+  padding-block: 8px;
+  color: #6e6893 !important;
+}
+
+.arco-table-cell-inline-icon {
+  margin-right: 30px !important;
+}
+.arco-icon-plus,
+.arco-icon-minus {
+  display: none !important;
+}

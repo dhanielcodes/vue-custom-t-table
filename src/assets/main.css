@@ -6,25 +6,6 @@
   box-sizing: border-box;
   font-family: 'Inter' sans-serif;
 }
-body{
-  background-color: #F2F0F9;
-}
-
-.arco-table-th {
-  padding-block: 6px;
-  background-color: #F4F2FF !important;
-  text-transform: uppercase;
-  color: #6E6893 !important;
-}
-.arco-table-td {
-  padding-block: 8px;
-  color: #6E6893 !important;
-}
-
-.arco-table-cell-inline-icon{
-margin-right: 30px !important;
-}
-.arco-icon-plus,
-.arco-icon-minus {
-  display: none !important;
+body {
+  background-color: #f2f0f9;
 }

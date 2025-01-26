@@ -1,27 +1,30 @@
 <script setup lang="ts">
-import CustomTable from '@/components/CustomTable.vue'
 import UserTable from '@/tables/UserTable/UserTable.vue'
 import TabBar from '@/components/TabBar.vue'
-import { reactive } from 'vue';
+import { reactive } from 'vue'
 
 const active: object = reactive({
-  name: 'All'
+  name: 'All',
 })
 
-const tabs = reactive([{
-  name: 'All'
-}, {
-  name: 'Paid'
-}, {
-  name: 'Unpaid'
-}, {
-  name: 'Overdue'
-}])
+const tabs = reactive([
+  {
+    name: 'All',
+  },
+  {
+    name: 'Paid',
+  },
+  {
+    name: 'Unpaid',
+  },
+  {
+    name: 'Overdue',
+  },
+])
 
 const setActive: (state: object) => void = (state: object) => {
   Object.assign(active, state)
 }
-
 </script>
 
 <template>
@@ -30,7 +33,6 @@ const setActive: (state: object) => void = (state: object) => {
     <UserTable />
   </div>
 </template>
-
 
 <style scoped>
 .body {

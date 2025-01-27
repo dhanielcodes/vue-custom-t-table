@@ -1,4 +1,6 @@
-export const data = [
+import { reactive } from "vue"
+
+export const data = reactive([
   {
     key: '1',
     name: 'Jane Doe',
@@ -10,6 +12,7 @@ export const data = [
     paymentStatus: 'paid',
     paymentDate: new Date(),
     lastLogin: new Date(),
+    showNested: false,
     children: [
       {
         key: '3',
@@ -38,6 +41,7 @@ export const data = [
     paymentDate: new Date(),
     lastLogin: new Date(),
     email: 'alisa.ross@example.com',
+    showNested: false,
     children: [
       {
         key: '3',
@@ -55,6 +59,6 @@ export const data = [
       },
     ],
   },
-]
+])
 
 export const statusStates: Array<string> = ['paid', 'active', 'overdue', 'unpaid', 'inactive']

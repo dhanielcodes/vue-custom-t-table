@@ -1,11 +1,63 @@
 <template>
-  <div>
+  <div class="table">
     <!-- Main Table -->
+    <div class="table_header">
+      <div class="table_header_filter">
+
+        <PopOver position="bl">
+          <template #action-btn>
+            <AppButton :style="{
+              paddingInline: '15px',
+              paddingBlock: '19px',
+              display: 'flex',
+              gap: '4px',
+              background: 'transparent',
+              border: '1px solid #C6C2DE',
+              borderRadius: '8px',
+              fontSize: '18px'
+            }"><icon-filter /> Filter</AppButton>
+          </template>
+          <template #content>
+            <div :style="{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start'
+            }">
+              <AppButtonText color="red" :style="{
+                color: '#6E6893',
+                fontSize: '12px'
+              }">SORT BY:</AppButtonText>
+              <a-radio-group v-model="sortValue" :options="RadioList" />
+              <AppButtonText color="red" :style="{
+                borderTop: '1px solid #F2F0F9',
+                color: '#6E6893',
+                fontSize: '12px'
+              }">USERS:</AppButtonText>
+              <a-radio-group v-model="sortValue2" :options="RadioList2" />
+            </div>
+          </template>
+        </popover>
+        <SearchInput />
+      </div>
+      <AppButton :style="{
+        padding: '14px 12px',
+        display: 'flex',
+        gap: '4px',
+        background: '#6D5BD0',
+        color: 'white',
+        borderRadius: '8px',
+        fontSize: '16px'
+      }"> PAY DUES</AppButton>
+    </div>
     <table class="main-table">
       <thead class="table-header">
         <tr>
+          <th class="table-cell arco-table-th">
+            <Checkbox />
+          </th>
           <th v-for="(it, idx) in columns" :key="idx" class="table-cell arco-table-th"
-            :style="{ width: it.width + 'px' }">{{ it.title }}
+            :style="{ width: it.width + 'px' }">
+            {{ it.title }}
           </th>
         </tr>
       </thead>
@@ -74,7 +126,7 @@
 
           </tr>
           <tr v-if="item.showNested">
-            <td v-if="item.children.length" :colspan="columns.length" class="nested-table-container">
+            <td :colspan="columns.length" class="nested-table-container">
               <table class="nested-table">
                 <thead>
                   <tr>
@@ -83,15 +135,20 @@
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody v-if="item.children.length">
                   <tr v-for="(nestedItem, nestedIndex) in item.children" :key="nestedIndex">
                     <td class="nested-cell arco-table-td"></td>
-                    <td class="nested-cell arco-table-td">{{ moment(nestedItem.date).format('DD/MMM/YYYY') }}</td>
+                    <td class="nested-cell arco-table-td">{{ moment(nestedItem.date).format('DD/MMM/YYYY').toUpperCase()
+                      }}</td>
                     <td class="nested-cell arco-table-td">{{ nestedItem.userActivity }}</td>
                     <td class="nested-cell arco-table-td">{{ nestedItem.detail }}</td>
                   </tr>
                 </tbody>
+
               </table>
+              <div class="no-data" v-if="!item.children.length">
+                NO RECORDS FOUND
+              </div>
             </td>
           </tr>
         </template>
@@ -111,14 +168,14 @@ import StatusSlot from "@/tables/UserTable/slots/status-slot.vue";
 import { Checkbox } from "@arco-design/web-vue";
 import AppButtonText from "./AppButtonText.vue";
 import MenuItem from "./MenuItem.vue";
+import PopOver from "./PopOver.vue";
+import AppButton from "./AppButton.vue";
 import moment from "moment";
+import { ref } from "vue";
+import SearchInput from "./SearchInput.vue";
 
 const columns = [
-  {
-    title: '',
-    slotName: 'view',
-    width: 110,
-  },
+
   {
     title: 'Name',
     slotName: 'name',
@@ -175,15 +232,78 @@ const nestedColumns = [
 const toggleNestedTable = (index: number) => {
   data[index].showNested = !data[index].showNested;
 };
+
+const RadioList = [
+  {
+    label: 'Default',
+    value: 'default'
+  },
+  {
+    label: 'First Name',
+    value: 'firstName'
+  },
+  {
+    label: 'Last Name',
+    value: 'lastName'
+  },
+  {
+    label: 'Due Date',
+    value: 'dueDate'
+  },
+  {
+    label: 'Last Login',
+    value: 'lastLogin'
+  },
+]
+
+const RadioList2 = [
+  {
+    label: 'All',
+    value: 'all'
+  },
+  {
+    label: 'Active',
+    value: 'active'
+  },
+  {
+    label: 'Inactive',
+    value: 'inactive'
+  },
+]
+const sortValue = ref()
+const sortValue2 = ref()
 </script>
 
 <style scoped>
 /* Main Table Styles */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table_header {
+  padding: 14px;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table_header_filter {
+  display: flex;
+  gap: 10px
+}
+
 .main-table {
-  width: 90%;
-  max-width: 1400px;
-  margin: 20px auto;
+  width: 100%;
   border-collapse: collapse;
+}
+
+.no-data {
+  padding: 30px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  color: #6E6893;
 }
 
 .table-header {
@@ -218,19 +338,22 @@ const toggleNestedTable = (index: number) => {
 .nested-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #D9D5EC;
   background-color: #F4F2FF !important;
 }
 
+.nested-table tr {
+  border: 1px solid #D9D5EC;
+
+}
+
 .nested-cell {
-  border: 1px solid #e5e7eb;
   padding: 10px;
   text-align: left;
   background-color: #F4F2FF !important;
 }
 
-.nested-header th {
-  background-color: #f9fafb;
+.nested-table th {
+  background-color: #F2F0F9 !important;
   font-weight: 600;
   padding: 10px;
 }

@@ -1,19 +1,19 @@
 <template>
-  <div class="tab-bar">
-    <div
-      v-for="item in tabs"
-      :key="item.name"
-      :class="['tab-bar-item', { active: active.name === item.name }]"
-      @click="proceed(item)"
-    >
-      <span
-        :style="{
+  <div class="tab-container">
+    <div class="tab-bar">
+      <div v-for="item in tabs" :key="item.name" :class="['tab-bar-item', { active: active.name === item.name }]"
+        @click="proceed(item)">
+        <span :style="{
           color: active.name === item.name ? '#25213B' : '#667085',
-        }"
-      >
-        {{ item.name }}
-      </span>
+        }">
+          {{ item.name }}
+        </span>
+      </div>
     </div>
+    <div class="slot">
+      <slot></slot>
+    </div>
+
   </div>
 </template>
 
@@ -40,11 +40,18 @@ const proceed: (toObject: object) => void = (toObject: object) => {
 </script>
 
 <style>
+.tab-container {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #c6c2de;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
+}
+
 .tab-bar {
   display: flex;
   width: 100%;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #c6c2de;
 }
 
 .tab-bar-item {
@@ -55,6 +62,12 @@ const proceed: (toObject: object) => void = (toObject: object) => {
   padding: 10px;
   text-align: center;
   color: #6e6893;
+}
+
+.slot {
+  padding-bottom: 10px;
+  width: 100%;
+
 }
 
 .tab-bar-item.active {

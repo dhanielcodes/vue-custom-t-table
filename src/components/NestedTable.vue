@@ -15,7 +15,7 @@
             <td class="table-cell arco-table-td">
               <div :style="{ display: 'flex', alignItems: 'center', gap: '10px' }">
                 <Checkbox />
-                <div @click="toggleNestedTable(index)">
+                <div :style="{ transform: 'translateY(12%)' }" @click="toggleNestedTable(index)">
                   <div v-if="item.showNested">
                     <NestReverseIcon />
                   </div>
@@ -74,18 +74,21 @@
 
           </tr>
           <tr v-if="item.showNested">
-            <td :colspan="columns.length" class="nested-table-container">
+            <td v-if="item.children.length" :colspan="columns.length" class="nested-table-container">
               <table class="nested-table">
                 <thead>
                   <tr>
-                    <th class="nested-cell arco-table-th">Nested Column 1</th>
-                    <th class="nested-cell arco-table-th">Nested Column 2</th>
+                    <th v-for="(it, idx) in nestedColumns" :key="idx" class="table-cell arco-table-th"
+                      :style="{ width: it.width + 'px' }">{{ it.title }}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr v-for="(nestedItem, nestedIndex) in item.children" :key="nestedIndex">
-                    <td class="nested-cell arco-table-td">{{ nestedItem.name }}</td>
-                    <td class="nested-cell arco-table-td">{{ nestedItem.email }}</td>
+                    <td class="nested-cell arco-table-td"></td>
+                    <td class="nested-cell arco-table-td">{{ moment(nestedItem.date).format('DD/MMM/YYYY') }}</td>
+                    <td class="nested-cell arco-table-td">{{ nestedItem.userActivity }}</td>
+                    <td class="nested-cell arco-table-td">{{ nestedItem.detail }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -108,6 +111,7 @@ import StatusSlot from "@/tables/UserTable/slots/status-slot.vue";
 import { Checkbox } from "@arco-design/web-vue";
 import AppButtonText from "./AppButtonText.vue";
 import MenuItem from "./MenuItem.vue";
+import moment from "moment";
 
 const columns = [
   {
@@ -142,6 +146,30 @@ const columns = [
     title: '',
     slotName: 'action',
   },
+]
+
+const nestedColumns = [
+  {
+    title: '',
+    slotName: 'view',
+    width: 110,
+  },
+  {
+    title: 'Date',
+    slotName: 'name',
+    width: 80,
+  },
+  {
+    title: 'User activity',
+    slotName: 'status',
+    width: 300,
+  },
+  {
+    title: 'Detail',
+    slotName: 'status',
+    width: 500,
+  },
+
 ]
 // Function to toggle the visibility of the nested table
 const toggleNestedTable = (index: number) => {
@@ -183,23 +211,22 @@ const toggleNestedTable = (index: number) => {
 
 /* Nested Table Styles */
 .nested-table-container {
-  padding: 12px;
-  background-color: #f3f4f6;
+  background-color: #F4F2FF;
   border-radius: 8px;
 }
 
 .nested-table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #d1d5db;
-  margin-top: 8px;
+  border: 1px solid #D9D5EC;
+  background-color: #F4F2FF !important;
 }
 
 .nested-cell {
   border: 1px solid #e5e7eb;
   padding: 10px;
   text-align: left;
-  background-color: #ffffff;
+  background-color: #F4F2FF !important;
 }
 
 .nested-header th {

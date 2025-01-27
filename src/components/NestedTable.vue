@@ -49,22 +49,18 @@
         fontSize: '16px'
       }"> PAY DUES</AppButton>
     </div>
-    <table class="main-table">
-      <thead class="table-header">
+    <table cellspacing="0" cellpadding="0" class="main_table">
+      <thead class="main_table_head">
         <tr>
-          <th class="table-cell arco-table-th">
-            <Checkbox />
-          </th>
-          <th v-for="(it, idx) in columns" :key="idx" class="table-cell arco-table-th"
-            :style="{ width: it.width + 'px' }">
+          <th v-for="(it, idx) in columns" :key="idx" :style="{ width: it.width + 'px' }">
             {{ it.title }}
           </th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="main_table_body">
         <template v-for="(item, index) in data" :key="index">
-          <tr class="main-row">
-            <td class="table-cell arco-table-td">
+          <tr>
+            <td>
               <div :style="{ display: 'flex', alignItems: 'center', gap: '10px' }">
                 <Checkbox />
                 <div :style="{ transform: 'translateY(12%)' }" @click="toggleNestedTable(index)">
@@ -77,25 +73,25 @@
                 </div>
               </div>
             </td>
-            <td class="table-cell arco-table-td">
+            <td>
               <NameSlot :record="item" />
             </td>
-            <td class="table-cell arco-table-td">
+            <td>
               <StatusSlot :record="{ status: item.status, lastLogin: item.lastLogin }" />
             </td>
-            <td class="table-cell arco-table-td">
+            <td>
               <PaymentStatusSlot :record="{ paymentStatus: item.paymentStatus, paymentDate: item.paymentDate }" />
             </td>
-            <td class="table-cell arco-table-td">
+            <td>
               <AmountSlot :record="item" />
             </td>
-            <td class="table-cell arco-table-td">
+            <td>
               <AppButtonText :style="{
                 color: '#6E6893',
                 fontSize: '14px'
               }">View More</AppButtonText>
             </td>
-            <td class="table-cell arco-table-td">
+            <td>
               <div class="slot_action">
                 <MenuItem position="br">
                 <template #action-btn>
@@ -123,25 +119,24 @@
                 </MenuItem>
               </div>
             </td>
-
           </tr>
           <tr v-if="item.showNested">
-            <td :colspan="columns.length" class="nested-table-container">
-              <table class="nested-table">
-                <thead>
+            <td style="padding: 0px;" :colspan="columns.length">
+              <table class="nested_table" cellpadding="0" cellspacing="0">
+                <thead class="nested_table_head">
                   <tr>
-                    <th v-for="(it, idx) in nestedColumns" :key="idx" class="table-cell arco-table-th"
-                      :style="{ width: it.width + 'px' }">{{ it.title }}
+                    <th v-for="(it, idx) in nestedColumns" :key="idx" :style="{ width: it.width + 'px' }">
+                      {{ it.title }}
                     </th>
                   </tr>
                 </thead>
-                <tbody v-if="item.children.length">
+                <tbody class="nested_table_body" v-if="item.children.length">
                   <tr v-for="(nestedItem, nestedIndex) in item.children" :key="nestedIndex">
-                    <td class="nested-cell arco-table-td"></td>
-                    <td class="nested-cell arco-table-td">{{ moment(nestedItem.date).format('DD/MMM/YYYY').toUpperCase()
+                    <td></td>
+                    <td>{{ moment(nestedItem.date).format('DD/MMM/YYYY').toUpperCase()
                       }}</td>
-                    <td class="nested-cell arco-table-td">{{ nestedItem.userActivity }}</td>
-                    <td class="nested-cell arco-table-td">{{ nestedItem.detail }}</td>
+                    <td>{{ nestedItem.userActivity }}</td>
+                    <td>{{ nestedItem.detail }}</td>
                   </tr>
                 </tbody>
 
@@ -175,7 +170,11 @@ import { ref } from "vue";
 import SearchInput from "./SearchInput.vue";
 
 const columns = [
-
+  {
+    title: '',
+    slotName: 'name',
+    width: 80,
+  },
   {
     title: 'Name',
     slotName: 'name',
@@ -209,7 +208,7 @@ const nestedColumns = [
   {
     title: '',
     slotName: 'view',
-    width: 110,
+    width: 60,
   },
   {
     title: 'Date',
@@ -278,6 +277,7 @@ const sortValue2 = ref()
 /* Main Table Styles */
 .table {
   border-radius: 10px;
+  width: 100%;
   overflow: hidden;
 }
 
@@ -293,73 +293,68 @@ const sortValue2 = ref()
   gap: 10px
 }
 
-.main-table {
+.main_table {
   width: 100%;
-  border-collapse: collapse;
+  background-color: #FFFFFF;
 }
 
-.no-data {
-  padding: 30px;
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
+.main_table_head th {
+  padding: 20px;
+  text-align: left;
+  text-transform: uppercase;
+  background-color: #F4F2FF;
+  border-bottom: 1px solid #D9D5EC;
   color: #6E6893;
 }
 
-.table-header {
-  background-color: #f9fafb;
-}
-
-.table-cell {
-  padding: 12px;
-  text-align: left;
-}
-
-/* Action Button Styles */
-.action-button {
-  background-color: #3b82f6;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.action-button:hover {
-  background-color: #2563eb;
-}
-
-/* Nested Table Styles */
-.nested-table-container {
-  background-color: #F4F2FF;
-  border-radius: 8px;
-}
-
-.nested-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #F4F2FF !important;
-}
-
-.nested-table tr {
+.main_table_body tr {
   border: 1px solid #D9D5EC;
-
 }
 
-.nested-cell {
-  padding: 10px;
+.main_table_body td {
+  padding: 20px;
   text-align: left;
-  background-color: #F4F2FF !important;
+  border-bottom: 1px solid #D9D5EC;
+  color: #6E6893;
 }
 
-.nested-table th {
-  background-color: #F2F0F9 !important;
-  font-weight: 600;
-  padding: 10px;
+
+.nested_table {
+  width: 100%;
+  background-color: #FFFFFF;
 }
 
-/* Ensure Rows Spread Properly */
-.main-row {
-  height: 48px;
+.nested_table_head th {
+  padding: 18px;
+  text-align: left;
+  text-transform: uppercase;
+  background-color: #F2F0F9;
+  border-bottom: 1px solid #D9D5EC;
+  color: #6E6893;
+}
+
+.nested_table_body tr {
+  background-color: #F4F2FF;
+}
+
+
+.nested_table_body td {
+  padding: 20px;
+  text-align: left;
+  border-bottom: 1px solid #D9D5EC;
+  color: #000;
+}
+
+.nested_table_body td:first-child {
+  padding: 20px;
+  text-align: left;
+  border-bottom: 1px solid #D9D5EC;
+  color: #6E6893 !important;
+}
+
+.no-data {
+  background-color: #F4F2FF;
+  padding: 24px;
+  text-align: center;
 }
 </style>

@@ -24,4 +24,5 @@ export interface ColumnType {
   title: string;
   width?: number;
   slotName?: string;
+  icon?: any;
 }

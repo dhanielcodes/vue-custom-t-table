@@ -7,8 +7,8 @@
     <table cellspacing="0" cellpadding="0" class="main_table">
       <thead class="main_table_head">
         <tr>
-          <th v-for="(it, idx) in columns" :key="idx" :style="{ width: it.width + 'px' }">
-            {{ it.title }}
+          <th v-for="(column, idx) in columns" :key="idx" :style="{ width: column.width + 'px' }">
+            {{ column.title }}
           </th>
         </tr>
       </thead>
@@ -80,8 +80,13 @@
               <table class="nested_table" cellpadding="0" cellspacing="0">
                 <thead class="nested_table_head">
                   <tr>
-                    <th v-for="(it, idx) in nestedColumns" :key="idx" :style="{ width: it.width + 'px' }">
-                      {{ it.title }}
+                    <th v-for="(nestedColumn, idx) in nestedColumns" :key="idx"
+                      :style="{ width: nestedColumn.width + 'px' }">
+                      <div style="display: flex; gap: 2px;">
+                        {{ nestedColumn.title }} <div v-if="nestedColumn.icon">
+                          <component :is="nestedColumn.icon"></component>
+                        </div>
+                      </div>
                     </th>
                   </tr>
                 </thead>

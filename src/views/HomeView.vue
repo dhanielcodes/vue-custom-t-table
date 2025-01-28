@@ -76,6 +76,7 @@ const nestedColumns: ColumnType[] = [
     title: 'Detail',
     slotName: 'status',
     width: 500,
+    icon: 'icon-info-circle'
   },
 
 ]
@@ -134,7 +135,6 @@ const sortValue2 = ref()
     </TabBar>
     <UserTable :columns="columns" :nested-columns="nestedColumns" :table-data="data">
       <template #header>
-
         <div style="display: flex;gap: 10px;">
           <PopOver position="bl">
             <template #action-btn>

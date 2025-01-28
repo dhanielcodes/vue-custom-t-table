@@ -16,7 +16,7 @@ import moment from 'moment'
 defineProps<{
   record: {
     status: 'active' | 'paid' | 'unpaid' | 'inactive' | 'overdue'
-    lastLogin: string
+    lastLogin: Date
   }
 }>()
 </script>

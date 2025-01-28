@@ -16,7 +16,7 @@ import moment from 'moment'
 defineProps<{
   record: {
     paymentStatus: 'active' | 'paid' | 'unpaid' | 'inactive' | 'overdue'
-    paymentDate: string
+    paymentDate: Date
   }
 }>()
 </script>

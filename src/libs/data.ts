@@ -1,7 +1,9 @@
+import type { TableData } from '@/types/TableTypes'
 import { reactive } from 'vue'
 
-export const data = reactive([
+export const data = reactive<TableData[]>([
   {
+    id: 1,
     key: '1',
     name: 'Jane Doe',
     amount: 230,
@@ -15,22 +17,14 @@ export const data = reactive([
     showNested: false,
     children: [
       {
-        key: '3',
-        name: 'Ed Hellen',
-        salary: 17000,
-        address: '42 Park Road, London',
+        id:0,
         userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
         detail:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
         date: new Date(),
-        email: 'ed.hellen@example.com',
       },
       {
-        key: '4',
-        name: 'William Smith',
-        salary: 27000,
-        address: '62 Park Road, London',
-        email: 'william.smith@example.com',
+        id: 1,
         userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
         detail:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
@@ -39,6 +33,7 @@ export const data = reactive([
     ],
   },
   {
+    id: 2,
     key: '1',
     name: 'Jane Doe',
     amount: 230,
@@ -53,6 +48,7 @@ export const data = reactive([
     children: [],
   },
   {
+    id: 3,
     key: '6',
     name: 'Alisa Ross',
     amount: 200,
@@ -66,22 +62,14 @@ export const data = reactive([
     showNested: false,
     children: [
       {
-        key: '3',
-        name: 'Ed Hellen',
-        salary: 17000,
-        address: '42 Park Road, London',
-        email: 'ed.hellen@example.com',
+        id:0,
         userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
         detail:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
         date: new Date(),
       },
       {
-        key: '4',
-        name: 'William Smith',
-        salary: 27000,
-        address: '62 Park Road, London',
-        email: 'william.smith@example.com',
+        id: 1,
         userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
         detail:
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',

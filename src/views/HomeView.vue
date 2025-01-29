@@ -204,55 +204,38 @@ const sortTable = (key: keyof (typeof userStore.userList)[0]) => {
         </div>
       </template>
     </TabBar>
-    <UserTable
-      :columns="columns"
-      :nested-columns="nestedColumns"
-      :table-data="userStore.filteredList"
-    >
+    <UserTable :width="1400" :columns="columns" :nested-columns="nestedColumns" :table-data="userStore.filteredList">
       <template #header>
         <div style="display: flex; gap: 10px">
           <PopOver position="bl">
             <template #action-btn>
-              <AppButton
-                :style="{
-                  paddingInline: '15px',
-                  paddingBlock: '19px',
-                  display: 'flex',
-                  gap: '4px',
-                  background: 'transparent',
-                  border: '1px solid #C6C2DE',
-                  borderRadius: '8px',
-                  fontSize: '18px',
-                }"
-                ><icon-filter /> Filter</AppButton
-              >
+              <AppButton :style="{
+                paddingInline: '15px',
+                paddingBlock: '19px',
+                display: 'flex',
+                gap: '4px',
+                background: 'transparent',
+                border: '1px solid #C6C2DE',
+                borderRadius: '8px',
+                fontSize: '18px',
+              }"><icon-filter /> Filter</AppButton>
             </template>
             <template #content>
-              <div
-                :style="{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                }"
-              >
-                <AppButtonText
-                  color="red"
-                  :style="{
-                    color: '#6E6893',
-                    fontSize: '12px',
-                  }"
-                  >SORT BY:</AppButtonText
-                >
+              <div :style="{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+              }">
+                <AppButtonText color="red" :style="{
+                  color: '#6E6893',
+                  fontSize: '12px',
+                }">SORT BY:</AppButtonText>
                 <a-radio-group v-model="sortBy" :options="RadioList" />
-                <AppButtonText
-                  color="red"
-                  :style="{
-                    borderTop: '1px solid #F2F0F9',
-                    color: '#6E6893',
-                    fontSize: '12px',
-                  }"
-                  >USERS:</AppButtonText
-                >
+                <AppButtonText color="red" :style="{
+                  borderTop: '1px solid #F2F0F9',
+                  color: '#6E6893',
+                  fontSize: '12px',
+                }">USERS:</AppButtonText>
                 <a-radio-group v-model="byStatus" :options="RadioList2" />
                 <br />
                 <div class="sort-btns">
@@ -265,20 +248,16 @@ const sortTable = (key: keyof (typeof userStore.userList)[0]) => {
           </PopOver>
           <SearchInput v-model="searchQuery" />
         </div>
-        <AppButton
-          @click="userStore.payDues"
-          :style="{
-            padding: '14px 12px',
-            display: 'flex',
-            gap: '4px',
-            background: '#6D5BD0',
-            color: 'white',
-            borderRadius: '8px',
-            fontSize: '16px',
-          }"
-        >
-          PAY DUES</AppButton
-        >
+        <AppButton @click="userStore.payDues" :style="{
+          padding: '14px 12px',
+          display: 'flex',
+          gap: '4px',
+          background: '#6D5BD0',
+          color: 'white',
+          borderRadius: '8px',
+          fontSize: '16px',
+        }">
+          PAY DUES</AppButton>
       </template>
     </UserTable>
   </div>

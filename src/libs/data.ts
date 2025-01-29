@@ -115,6 +115,72 @@ export const data: TableData[] = [
       },
     ],
   },
+  {
+    id: 5,
+    key: '6',
+    name: 'Elie Foxx',
+    firstName: 'Elie',
+    lastName: 'Foxx',
+    amount: 200,
+    address: '35 Park Road, London',
+    currency: 'USD',
+    status: 'inactive',
+    paymentStatus: 'overdue',
+    paymentDate: new Date(),
+    lastLogin: new Date(),
+    overdueDate: new Date(),
+    email: 'alisa.ross@example.com',
+    showNested: false,
+    children: [
+      {
+        id: 0,
+        userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
+        detail:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
+        date: new Date(),
+      },
+      {
+        id: 1,
+        userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
+        detail:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
+        date: new Date(),
+      },
+    ],
+  },
+  {
+    id: 6,
+    key: '6',
+    name: 'Elie Foxx',
+    firstName: 'Elie',
+    lastName: 'Foxx',
+    amount: 200,
+    address: '35 Park Road, London',
+    currency: 'USD',
+    status: 'active',
+    paymentStatus: 'unpaid',
+    paymentDate: new Date(),
+    lastLogin: new Date(),
+    overdueDate: new Date(),
+    email: 'alisa.ross@example.com',
+    showNested: false,
+    children: [
+      {
+        id: 0,
+        userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
+        detail:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
+        date: new Date(),
+      },
+      {
+        id: 1,
+        userActivity: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ultricies.',
+        detail:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Rhoncus, sed purus eu semper morbi id nunc, adipiscing vitae. Ultricies suspendisse vestibulum.',
+        date: new Date(),
+      },
+    ],
+  },
 ]
 
 export const statusStates: Array<string> = ['paid', 'active', 'overdue', 'unpaid', 'inactive']

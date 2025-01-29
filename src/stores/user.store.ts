@@ -18,7 +18,13 @@ export const useUserStore = defineStore('user', {
       const updatedMap = new Map(
         this.checkedList
           .filter((item: TableData) => item.paymentStatus === 'unpaid')
-          .map((item: TableData) => [item.id, { ...item, paymentStatus: 'paid' }]),
+          .map((item: TableData) => [
+            item.id,
+            {
+              ...item,
+              paymentStatus: 'paid' as 'active' | 'paid' | 'unpaid' | 'inactive' | 'overdue',
+            },
+          ]),
       )
       this.filteredList = this.filteredList.map((item) =>
         updatedMap.has(item.id) ? updatedMap.get(item.id)! : item,

@@ -13,13 +13,13 @@
         </tr>
       </thead>
       <tbody class="main_table_body">
-        <template v-for="(item, index) in data" :key="index">
-          <tr>
+        <template v-for="(item, index) in tableData" :key="index">
+          <tr :style="{ backgroundColor: indexCol === index ? '#F4F2FF' : '' }">
             <td>
               <div :style="{ display: 'flex', alignItems: 'center', gap: '10px' }">
                 <Checkbox />
                 <div :style="{ transform: 'translateY(12%)' }" @click="toggleNestedTable(index)">
-                  <div v-if="item.showNested">
+                  <div v-if="indexCol === index">
                     <NestReverseIcon />
                   </div>
                   <div v-else>
@@ -35,7 +35,8 @@
               <StatusSlot :record="{ status: item.status, lastLogin: item.lastLogin }" />
             </td>
             <td>
-              <PaymentStatusSlot :record="{ paymentStatus: item.paymentStatus, paymentDate: item.paymentDate }" />
+              <PaymentStatusSlot
+                :record="{ paymentStatus: item.paymentStatus, paymentDate: item.paymentDate, overdueDate: item.overdueDate }" />
             </td>
             <td>
               <AmountSlot :record="item" />
@@ -75,7 +76,7 @@
               </div>
             </td>
           </tr>
-          <tr v-if="item.showNested">
+          <tr v-if="indexCol === index">
             <td style="padding: 0px;" :colspan="columns.length">
               <table class="nested_table" cellpadding="0" cellspacing="0">
                 <thead class="nested_table_head">
@@ -109,6 +110,9 @@
         </template>
       </tbody>
     </table>
+    <div class="no-data" v-if="!tableData.length">
+      NO RECORDS FOUND
+    </div>
   </div>
 </template>
 
@@ -123,10 +127,10 @@ import { Checkbox } from "@arco-design/web-vue";
 import AppButtonText from "@/components/AppButtonText.vue";
 import MenuItem from "@/components/MenuItem.vue";
 import moment from "moment";
-import { reactive } from "vue";
+import { ref } from "vue";
 import type { ColumnType, TableData } from "@/types/TableTypes";
 
-const props = defineProps({
+defineProps({
   columns: {
     required: true,
     type: Array<ColumnType>
@@ -141,11 +145,17 @@ const props = defineProps({
   }
 })
 
-const data = reactive(props.tableData)
+
+const indexCol = ref<number | null>(null)
 
 // Function to toggle the visibility of the nested table
 const toggleNestedTable = (index: number) => {
-  data[index].showNested = !data[index].showNested;
+  if (index === indexCol.value) {
+    indexCol.value = null
+  } else {
+    indexCol.value = index
+
+  }
 };
 
 

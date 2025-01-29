@@ -12,8 +12,8 @@
 defineProps({
   color: {
     type: String,
-    def: '#000',
-    req: true
+    default: '#000',
+    required: true
   },
   styles: {
     type: Object,

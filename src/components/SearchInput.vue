@@ -1,5 +1,5 @@
 <template>
-  <a-input :style="{
+  <a-input :value="props.modelValue" @input="updateValue" :style="{
     width: '320px',
     background: '#F4F2FF',
     borderRadius: '8px',
@@ -14,3 +14,16 @@
     </template>
   </a-input>
 </template>
+<script setup lang="ts">
+
+const props = defineProps({
+  modelValue: String
+});
+const emit = defineEmits(["update:modelValue"]);
+
+
+const updateValue = (value: string, event: Event) => {
+  const target = event.target as HTMLInputElement;
+  emit("update:modelValue", target.value);
+};
+</script>

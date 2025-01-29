@@ -122,7 +122,6 @@ const RadioList2 = [
 ]
 
 const reset = () => {
-  byPaymentStatus.value = ''
   byStatus.value = ''
   sortBy.value = ''
 }

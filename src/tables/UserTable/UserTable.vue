@@ -22,7 +22,7 @@
                   <div @click="setChecked(item)">
                     <Checkbox :model-value="store.checkedList.includes(item)" />
                   </div>
-                  <div :style="{ transform: 'translateY(12%)' }" @click="toggleNestedTable(index)">
+                  <div @click="toggleNestedTable(index)">
                     <div v-if="indexCol === index">
                       <NestReverseIcon />
                     </div>

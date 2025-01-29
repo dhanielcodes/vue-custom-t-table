@@ -1,24 +1,24 @@
 <template>
-  <a-button :style="{
-    color: color,
-    ...styles
-  }">
+  <a-button
+    :style="{
+      color: color,
+      ...styles,
+    }"
+  >
     <slot></slot>
   </a-button>
 </template>
 
 <script setup lang="ts">
-
 defineProps({
   color: {
     type: String,
     default: '#000',
-    required: true
+    required: true,
   },
   styles: {
     type: Object,
-    required: false
-  }
+    required: false,
+  },
 })
-
 </script>

@@ -8,7 +8,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import { CFormatter } from '@/libs/utils';
+import { CFormatter } from '@/libs/utils'
 
 defineProps<{
   record: {

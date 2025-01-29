@@ -26,7 +26,6 @@ defineProps({
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-
 }
 
 .arco-radio-button {
@@ -53,7 +52,7 @@ defineProps({
   padding-block: 5px !important;
 }
 
-.arco-radio-button.arco-radio-checked>.arco-radio-button-content {
+.arco-radio-button.arco-radio-checked > .arco-radio-button-content {
   color: #25213b;
 }
 
@@ -79,7 +78,6 @@ defineProps({
 .slot {
   padding-bottom: 10px;
   width: 100%;
-
 }
 
 .tab-bar-item.active {

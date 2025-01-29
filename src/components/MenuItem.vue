@@ -2,10 +2,8 @@
 defineProps({
   position: {
     type: String as () => 'bl' | 'br' | 'tl' | 'tr' | 'top' | 'bottom',
-  }
+  },
 })
-
-
 </script>
 
 <template>
@@ -21,7 +19,6 @@ defineProps({
     </a-dropdown>
   </a-space>
 </template>
-
 
 <style>
 .arco-dropdown {

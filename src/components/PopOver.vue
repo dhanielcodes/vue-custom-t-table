@@ -2,10 +2,8 @@
 defineProps({
   position: {
     type: String as () => 'lt' | 'lb' | 'bl' | 'tl' | 'tr' | 'top' | 'bottom' | 'left',
-  }
+  },
 })
-
-
 </script>
 <template>
   <a-space>
@@ -20,7 +18,6 @@ defineProps({
     </a-popover>
   </a-space>
 </template>
-
 
 <style>
 .arco-popover-popup-content {

@@ -168,8 +168,8 @@ const updateFilteredAndSortedUsers = () => {
     });
   }
   // Apply Sorting
+  sortTable(sortBy.value as keyof TableData)
   if (sortKey.value) {
-    sortTable(sortBy.value as keyof TableData)
     filtered.sort((a, b) => {
       const valA = sortKey.value ? a[sortKey.value]?.toLowerCase() : '';
       const valB = sortKey.value ? b[sortKey.value]?.toLowerCase() : '';

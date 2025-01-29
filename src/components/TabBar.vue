@@ -29,6 +29,38 @@ defineProps({
 
 }
 
+.arco-radio-button {
+  background-color: transparent !important;
+  width: fit-content;
+  border-bottom: 2px solid transparent;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  transform: translateY(4px);
+}
+
+.arco-radio-button.arco-radio-checked {
+  background-color: #f2f0f9 !important;
+  width: fit-content;
+  border-bottom: 2px solid #25213b;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.arco-radio-button-content {
+  color: #6e6893;
+  padding-block: 5px !important;
+}
+
+.arco-radio-button.arco-radio-checked>.arco-radio-button-content {
+  color: #25213b;
+}
+
+.arco-radio-button::before {
+  display: none !important;
+}
+
 .tab-bar {
   display: flex;
   width: 100%;

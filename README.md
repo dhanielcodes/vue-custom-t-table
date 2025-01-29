@@ -102,6 +102,8 @@ npm run dev
 5. Click column headers to sort by first name, last name, or email.
 6. Select unpaid users using checkboxes and click "Pay Dues" to update their payment status.
 
-## License
+## Live Url
 
-This project is licensed under the MIT License.
+```sh
+https://scelloo-test.vercel.app/
+```

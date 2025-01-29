@@ -52,7 +52,7 @@ defineProps({
   padding-block: 5px !important;
 }
 
-.arco-radio-button.arco-radio-checked > .arco-radio-button-content {
+.arco-radio-button.arco-radio-checked>.arco-radio-button-content {
   color: #25213b;
 }
 
@@ -65,27 +65,8 @@ defineProps({
   width: 100%;
 }
 
-.tab-bar-item {
-  width: fit-content;
-  border-bottom: 2px solid transparent;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 10px;
-  text-align: center;
-  color: #6e6893;
-}
-
 .slot {
   padding-bottom: 10px;
   width: 100%;
-}
-
-.tab-bar-item.active {
-  border-bottom: 2px solid #25213b;
-}
-
-.tab-bar-item span {
-  width: 100%;
-  text-transform: capitalize;
 }
 </style>

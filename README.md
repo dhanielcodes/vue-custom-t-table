@@ -65,10 +65,8 @@ npm run dev
         │   ├── AppButton.vue
         │   ├── AppButtonText.vue
         │   ├── BadgeStatus.vue
-        │   ├── CustomTable.vue
         │   ├── MenuItem.vue
         │   ├── PopOver.vue
-        │   ├── RadioDropdown.vue
         │   ├── SearchInput.vue
         │   └── TabBar.vue
         ├── libs/
@@ -77,7 +75,6 @@ npm run dev
         ├── router/
         │   └── index.ts
         ├── stores/
-        │   ├── counter.ts
         │   └── user.store.ts
         ├── tables/
         │   └── UserTable/

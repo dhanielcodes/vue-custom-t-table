@@ -126,17 +126,12 @@ const reset = () => {
   sortBy.value = ''
 }
 
-// Sort State
 const sortKey = ref<keyof (typeof userStore.userList)[0] | null>(null)
 const sortOrder = ref<'asc' | 'desc'>('asc')
-
-// Filter State
 
 // Filter and Sort Logic
 const updateFilteredAndSortedUsers = () => {
   let filtered: TableData[] = [...userStore.userList]
-
-  // Apply Filters
 
   if (byStatus.value) {
     if (byStatus.value === '') {
@@ -158,7 +153,6 @@ const updateFilteredAndSortedUsers = () => {
       return user.name.toLowerCase().includes(term) || user.email.toLowerCase().includes(term)
     })
   }
-  // Apply Sorting
   sortTable(sortBy.value as keyof TableData)
   if (sortKey.value) {
     filtered.sort((a, b) => {
@@ -170,12 +164,9 @@ const updateFilteredAndSortedUsers = () => {
       return 0
     })
   }
-
-  // Update Store
   userStore.updateFilteredUsers(filtered)
 }
 
-// Watch Filters and Sorting
 watch([byStatus, byPaymentStatus, searchQuery, sortBy], () => {
   updateFilteredAndSortedUsers()
 })

@@ -1,42 +1,22 @@
 <template>
   <div class="tab-container">
     <div class="tab-bar">
-      <div v-for="item in tabs" :key="item.name" :class="['tab-bar-item', { active: active.name === item.name }]"
-        @click="proceed(item)">
-        <span :style="{
-          color: active.name === item.name ? '#25213B' : '#667085',
-        }">
-          {{ item.name }}
-        </span>
-      </div>
+      <slot name="tab"></slot>
     </div>
     <div class="slot">
-      <slot></slot>
+      <slot name="child"></slot>
     </div>
-
   </div>
 </template>
 
 <script setup lang="ts">
 // Props
-const props = defineProps({
-  active: {
-    type: Object,
-    required: true,
-  },
-  setActive: {
-    type: Function,
-    required: true,
-  },
+defineProps({
   tabs: {
-    type: Array as () => { name: string }[],
+    type: Array as () => { label: string }[],
     required: true,
   },
 })
-
-const proceed: (toObject: object) => void = (toObject: object) => {
-  props.setActive(toObject)
-}
 </script>
 
 <style>

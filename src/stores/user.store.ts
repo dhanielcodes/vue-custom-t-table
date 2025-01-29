@@ -7,9 +7,6 @@ export const useUserStore = defineStore('user', {
     return {
       userList: data as TableData[],
       filteredList: data as TableData[],
-      sortBy: 'default' as string | number | boolean | undefined,
-      status: 'all' as string | number | boolean | undefined,
-      paymentStatus: 'all' as null | string,
     }
   },
   actions: {

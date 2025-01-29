@@ -16,3 +16,9 @@
 .arco-icon-minus {
   display: none !important;
 }
+.arco-radio-button::before {
+  display: none !important;
+}
+.arco-radio-button.arco-radio-checked {
+  background-color: blue !important;
+}

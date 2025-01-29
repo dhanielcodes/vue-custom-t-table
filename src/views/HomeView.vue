@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import TabBar from '@/components/TabBar.vue'
-import { reactive, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import type { ColumnType } from '@/types/TableTypes'
 import UserTable from '@/tables/UserTable/UserTable.vue'
 import AppButton from '@/components/AppButton.vue'
@@ -12,25 +12,28 @@ import type { TableData } from '@/types/TableTypes'
 
 
 const userStore = useUserStore()
-
-const active: object = reactive({
-  name: 'All',
-})
+const sortBy = ref<string>('')
+const byStatus = ref<string>('')
+const byPaymentStatus = ref<string>('')
 const searchQuery = defineModel<string>('')
-const tabs = reactive([
+const tabs = [
   {
-    name: 'All',
+    label: 'All',
+    value: ''
   },
   {
-    name: 'Paid',
+    label: 'Paid',
+    value: 'paid'
   },
   {
-    name: 'Unpaid',
+    label: 'Unpaid',
+    value: 'unpaid'
   },
   {
-    name: 'Overdue',
+    label: 'Overdue',
+    value: 'overdue'
   },
-])
+]
 const columns: ColumnType[] = [
   {
     title: '',
@@ -85,17 +88,11 @@ const nestedColumns: ColumnType[] = [
   },
 
 ]
-const setActive: (state: { name: string }) => void = (state: { name: string }) => {
-  userStore.paymentStatus = state.name.toLocaleLowerCase()
-  console.log(userStore.paymentStatus, 'payme')
-  updateFilteredAndSortedUsers()
-  Object.assign(active, state)
-}
 
 const RadioList = [
   {
     label: 'Default',
-    value: 'default'
+    value: ''
   },
   {
     label: 'First Name',
@@ -114,7 +111,7 @@ const RadioList = [
 const RadioList2 = [
   {
     label: 'All Users',
-    value: 'all'
+    value: ''
   },
   {
     label: 'Active',
@@ -125,14 +122,11 @@ const RadioList2 = [
     value: 'inactive'
   },
 ]
-const filter = () => {
-  if (userStore.sortBy) {
-    console.log(userStore.sortBy, userStore.status, 'sortby')
-    sortTable(userStore.sortBy as keyof TableData)
-  }
-}
 
 const reset = () => {
+  byPaymentStatus.value = ''
+  byStatus.value = ''
+  sortBy.value = ''
 }
 
 
@@ -148,26 +142,34 @@ const updateFilteredAndSortedUsers = () => {
   let filtered: TableData[] = [...userStore.userList];
 
   // Apply Filters
-  if (userStore.status) {
-    userStore.updateFilteredUsers(filtered.filter((user) => user.status === userStore.status));
-    //filtered = filtered.filter((user) => user.status === userStore.status);
+
+
+  if (byStatus.value) {
+    if (byStatus.value === '') {
+      filtered = userStore.userList
+    } else {
+      filtered = filtered.filter((user) => user.status === byStatus.value)
+    }
   }
-  if (userStore.paymentStatus) {
-    userStore.updateFilteredUsers(filtered.filter((user) => user.paymentStatus === userStore.paymentStatus));
-    //filtered = filtered.filter((user) => user.paymentStatus === userStore.paymentStatus);
+  if (byPaymentStatus.value) {
+    if (byPaymentStatus.value === '') {
+      filtered = userStore.userList
+    } else {
+      filtered = filtered.filter((user) => user.paymentStatus === byPaymentStatus.value)
+    }
   }
   if (searchQuery.value) {
     const term = searchQuery.value.toLowerCase();
     filtered = filtered.filter((user) => {
       return (
-        user.firstName.toLowerCase().includes(term) ||
-        user.lastName.toLowerCase().includes(term) ||
+        user.name.toLowerCase().includes(term) ||
         user.email.toLowerCase().includes(term)
       );
     });
   }
   // Apply Sorting
   if (sortKey.value) {
+    sortTable(sortBy.value as keyof TableData)
     filtered.sort((a, b) => {
       const valA = sortKey.value ? a[sortKey.value]?.toLowerCase() : '';
       const valB = sortKey.value ? b[sortKey.value]?.toLowerCase() : '';
@@ -183,7 +185,7 @@ const updateFilteredAndSortedUsers = () => {
 };
 
 // Watch Filters and Sorting
-watch([userStore.status, userStore.paymentStatus, sortKey, searchQuery, sortOrder], () => {
+watch([byStatus, byPaymentStatus, searchQuery, sortBy], () => {
   updateFilteredAndSortedUsers();
 });
 
@@ -201,11 +203,15 @@ const sortTable = (key: keyof typeof userStore.userList[0]) => {
 
 <template>
   <div class="body">
-    {{ searchQuery }}
-    <TabBar :set-active="setActive" :active="active" :tabs="tabs">
-      <div class="total">
-        Total payable amount: <span>$900.00</span> <span class="currency">USD</span>
-      </div>
+    <TabBar :tabs="tabs">
+      <template #tab>
+        <a-radio-group v-model="byPaymentStatus" :options="tabs" type="button" />
+      </template>
+      <template #child>
+        <div class="total">
+          Total payable amount: <span>$900.00</span> <span class="currency">USD</span>
+        </div>
+      </template>
     </TabBar>
     <UserTable :columns="columns" :nested-columns="nestedColumns" :table-data="userStore.filteredList">
       <template #header>
@@ -233,18 +239,15 @@ const sortTable = (key: keyof typeof userStore.userList[0]) => {
                   color: '#6E6893',
                   fontSize: '12px'
                 }">SORT BY:</AppButtonText>
-                <a-radio-group v-model="userStore.sortBy" :options="RadioList" />
+                <a-radio-group v-model="sortBy" :options="RadioList" />
                 <AppButtonText color="red" :style="{
                   borderTop: '1px solid #F2F0F9',
                   color: '#6E6893',
                   fontSize: '12px'
                 }">USERS:</AppButtonText>
-                <a-radio-group v-model="userStore.status" :options="RadioList2" />
+                <a-radio-group v-model="byStatus" :options="RadioList2" />
                 <br />
                 <div class="sort-btns">
-                  <div @click="filter">
-                    <AppButton color="black">Filter</AppButton>
-                  </div>
                   <div @click="reset">
                     <AppButton color="blue">Reset</AppButton>
                   </div>

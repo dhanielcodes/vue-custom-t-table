@@ -7,11 +7,23 @@ export const useUserStore = defineStore('user', {
     return {
       userList: data as TableData[],
       filteredList: data as TableData[],
+      checkedList: [] as TableData[],
     }
   },
   actions: {
     updateFilteredUsers(filteredData: TableData[]) {
       this.filteredList = filteredData
+    },
+    payDues() {
+      const updatedMap = new Map(
+        this.checkedList
+          .filter((item: TableData) => item.paymentStatus === 'unpaid')
+          .map((item: TableData) => [item.id, { ...item, paymentStatus: 'paid' }]),
+      )
+      this.filteredList = this.filteredList.map((item) =>
+        updatedMap.has(item.id) ? updatedMap.get(item.id)! : item,
+      )
+      this.checkedList = [] as TableData[]
     },
   },
 })

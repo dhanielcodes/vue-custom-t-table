@@ -83,7 +83,7 @@ export const data: TableData[] = [
     ],
   },
   {
-    id: 3,
+    id: 4,
     key: '6',
     name: 'Elie Foxx',
     firstName: 'Elie',

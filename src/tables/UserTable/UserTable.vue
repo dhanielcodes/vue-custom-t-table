@@ -17,7 +17,9 @@
           <tr :style="{ backgroundColor: indexCol === index ? '#F4F2FF' : '' }">
             <td>
               <div :style="{ display: 'flex', alignItems: 'center', gap: '10px' }">
-                <Checkbox />
+                <div @click="setChecked(item)">
+                  <Checkbox :model-value="store.checkedList.includes(item)" />
+                </div>
                 <div :style="{ transform: 'translateY(12%)' }" @click="toggleNestedTable(index)">
                   <div v-if="indexCol === index">
                     <NestReverseIcon />
@@ -129,6 +131,7 @@ import MenuItem from "@/components/MenuItem.vue";
 import moment from "moment";
 import { ref } from "vue";
 import type { ColumnType, TableData } from "@/types/TableTypes";
+import { useUserStore } from "@/stores/user.store";
 
 defineProps({
   columns: {
@@ -145,6 +148,17 @@ defineProps({
   }
 })
 
+const store = useUserStore()
+
+const setChecked = (item: TableData) => {
+
+  if (store.checkedList.includes(item)) {
+    store.checkedList = store.checkedList.filter((itm) => itm.id !== item.id)
+  } else {
+    store.checkedList = [...store.checkedList, item]
+  }
+};
+
 
 const indexCol = ref<number | null>(null)
 
@@ -154,7 +168,6 @@ const toggleNestedTable = (index: number) => {
     indexCol.value = null
   } else {
     indexCol.value = index
-
   }
 };
 

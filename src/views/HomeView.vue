@@ -257,7 +257,7 @@ const sortTable = (key: keyof typeof userStore.userList[0]) => {
           </PopOver>
           <SearchInput v-model="searchQuery" />
         </div>
-        <AppButton :style="{
+        <AppButton @click="userStore.payDues" :style="{
           padding: '14px 12px', display: 'flex', gap: '4px', background: '#6D5BD0', color: 'white',
           borderRadius: '8px', fontSize: '16px'
         }"> PAY DUES</AppButton>

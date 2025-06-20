@@ -102,5 +102,5 @@ npm run dev
 ## Live Url
 
 ```sh
-[https://scelloo-test.vercel.app/](https://custom-t-table.vercel.app/)
+https://custom-t-table.vercel.app/
 ```

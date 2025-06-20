@@ -1,4 +1,4 @@
-# Scelloo Table Component
+# Table Component
 
 ## Overview
 
@@ -102,5 +102,5 @@ npm run dev
 ## Live Url
 
 ```sh
-https://scelloo-test.vercel.app/
+[https://scelloo-test.vercel.app/](https://custom-t-table.vercel.app/)
 ```
